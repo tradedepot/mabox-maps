@@ -870,13 +870,19 @@ class MapboxWebGlPlatform extends MapboxGlPlatform
 
   @override
   Future<void> addGeoJsonSource(String sourceId, Map<String, dynamic> geojson,
-      {String? promoteId}) async {
+      {String? promoteId,
+      bool cluster = false,
+      int? clusterMaxZoom,
+      int? clusterRadius}) async {
     final data = _makeFeatureCollection(geojson);
     _addedFeaturesByLayer[sourceId] = data;
     _map.addSource(sourceId, {
       "type": 'geojson',
       "data": geojson,
-      if (promoteId != null) "promoteId": promoteId
+      if (promoteId != null) "promoteId": promoteId,
+      if (cluster) "cluster": true,
+      if (cluster && clusterMaxZoom != null) "clusterMaxZoom": clusterMaxZoom,
+      if (cluster && clusterRadius != null) "clusterRadius": clusterRadius,
     });
   }
 

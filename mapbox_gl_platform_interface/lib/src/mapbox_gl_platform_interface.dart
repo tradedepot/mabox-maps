@@ -105,7 +105,10 @@ abstract class MapboxGlPlatform {
   Future<double> getMetersPerPixelAtLatitude(double latitude);
 
   Future<void> addGeoJsonSource(String sourceId, Map<String, dynamic> geojson,
-      {String? promoteId});
+      {String? promoteId,
+      bool cluster = false,
+      int? clusterMaxZoom,
+      int? clusterRadius});
 
   Future<void> setGeoJsonSource(String sourceId, Map<String, dynamic> geojson);
 

@@ -126,8 +126,7 @@ class MapboxMapController extends ChangeNotifier {
             symbolManager = SymbolManager(this,
                 onTap: onSymbolTapped, enableInteraction: enableInteraction);
             break;
-          default:
-        }
+          }
       }
       if (onStyleLoadedCallback != null) {
         onStyleLoadedCallback!();
@@ -319,14 +318,29 @@ class MapboxMapController extends ChangeNotifier {
   /// id of the feature. This is useful because by default mapbox-gl-js does not
   /// support string ids
   ///
+  /// [cluster] enables point clustering on the source. When true, points will
+  /// be grouped into clusters based on proximity.
+  ///
+  /// [clusterMaxZoom] is the maximum zoom level at which points are clustered
+  /// (default: 14). Above this zoom, all points are unclustered.
+  ///
+  /// [clusterRadius] is the radius in pixels within which points will be
+  /// clustered together (default: 50).
+  ///
   /// The returned [Future] completes after the change has been made on the
   /// platform side.
   ///
   Future<void> addGeoJsonSource(String sourceId, Map<String, dynamic> geojson,
-      {String? promoteId}) async {
+      {String? promoteId,
+      bool cluster = false,
+      int? clusterMaxZoom,
+      int? clusterRadius}) async {
     _disposeGuard();
     await _mapboxGlPlatform.addGeoJsonSource(sourceId, geojson,
-        promoteId: promoteId);
+        promoteId: promoteId,
+        cluster: cluster,
+        clusterMaxZoom: clusterMaxZoom,
+        clusterRadius: clusterRadius);
   }
 
   /// Sets new geojson data to and existing source

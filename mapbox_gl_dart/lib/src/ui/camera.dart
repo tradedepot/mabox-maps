@@ -48,7 +48,7 @@ class CameraOptions extends JsObjectWrapper<CameraOptionsJsImpl> {
 }
 
 ///  Options common to map movement methods that involve animation, such as {@link MapboxMap#panBy} and
-///  {@link MapboxMap#easeTo}, controlling the duration and easing function of the animation. All properties
+///  {link MapboxMap#easeTo}, controlling the duration and easing function of the animation. All properties
 ///  are optional.
 ///
 ///  @typedef {Object} AnimationOptions
@@ -352,7 +352,7 @@ class Camera extends Evented {
           jsObject.cameraForBounds(bounds.jsObject));
     }
     return CameraOptions.fromJsObject(jsObject.cameraForBounds(bounds.jsObject,
-        options is CameraOptions ? options.jsObject : jsifyAny(options) as JSObject));
+        options is CameraOptions ? options.jsObject : jsifyAny(options)));
   }
 
   ///  Pans and zooms the map to contain its visible area within the specified geographical bounds.
@@ -382,7 +382,7 @@ class Camera extends Evented {
   MapboxMap fitBounds(LngLatBounds bounds,
           [Map<String, dynamic>? options, dynamic eventData]) =>
       MapboxMap.fromJsObject(jsObject.fitBounds(
-          bounds.jsObject, jsifyAny(options ?? {}) as JSObject, jsifyAny(eventData)));
+          bounds.jsObject, jsifyAny(options ?? {}), jsifyAny(eventData)));
 
   ///  Pans, rotates and zooms the map to to fit the box made by points p0 and p1
   ///  once the map is rotated to the specified bearing. To zoom without rotating,
@@ -521,7 +521,7 @@ class Camera extends Evented {
   ///  @see [Fly to a location based on scroll position](https://www.mapbox.com/mapbox-gl-js/example/scroll-fly-to/)
   MapboxMap flyTo(dynamic options, [String? eventData]) =>
       MapboxMap.fromJsObject(jsObject.flyTo(
-          options is CameraOptions ? options.jsObject : jsifyAny(options) as JSObject));
+          options is CameraOptions ? options.jsObject : jsifyAny(options)));
 
   bool isEasing() => jsObject.isEasing();
 
